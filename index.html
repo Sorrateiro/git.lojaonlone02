@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Loja Virtual</title>
+  <style>
+    body { font-family: Arial; margin: 0; padding: 0; background: #f9f9f9; }
+    header { background: #333; color: white; padding: 1em; display: flex; justify-content: space-between; align-items: center; }
+    nav a { color: white; margin-left: 1em; text-decoration: none; }
+    .product { background: white; margin: 1em; padding: 1em; border-radius: 5px; box-shadow: 0 0 5px #ccc; }
+    button { margin-right: 0.5em; }
+    #cart, #favorites, #login, #checkout { display: none; padding: 1em; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Minha Loja</h1>
+  <nav>
+    <a href="#" onclick="showSection('products')">Produtos</a>
+    <a href="#" onclick="showSection('cart')">🛒 Carrinho</a>
+    <a href="#" onclick="showSection('favorites')">❤️ Favoritos</a>
+    <a href="#" onclick="showSection('login')">🔐 Login</a>
+  </nav>
+</header>
+
+<!-- Produtos -->
+<section id="products">
+  <div class="product" data-id="1">
+    <h2>Produto 1</h2>
+    <button onclick="addToCart(1)">Adicionar ao Carrinho</button>
+    <button onclick="addToFavorites(1)">❤️ Favoritar</button>
+  </div>
+  <div class="product" data-id="2">
+    <h2>Produto 2</h2>
+    <button onclick="addToCart(2)">Adicionar ao Carrinho</button>
+    <button onclick="addToFavorites(2)">❤️ Favoritar</button>
+  </div>
+</section>
+
+<!-- Carrinho -->
+<section id="cart">
+  <h2>Seu Carrinho</h2>
+  <ul id="cart-list"></ul>
+  <button onclick="showSection('checkout')">Finalizar Compra</button>
+</section>
+
+<!-- Favoritos -->
+<section id="favorites">
+  <h2>Seus Favoritos</h2>
+  <ul id="fav-list"></ul>
+</section>
+
+<!-- Login -->
+<section id="login">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <p id="login-status"></p>
+</section>
+
+<!-- Checkout -->
+<section id="checkout">
+  <h2>Pagamento</h2>
+  <p>Simulação de pagamento. Obrigado pela compra!</p>
+</section>
+
+<script>
+  let cart = [];
+  let favorites = [];
+  let loggedIn = false;
+
+  function showSection(id) {
+    document.querySelectorAll("section").forEach(s => s.style.display = "none");
+    document.getElementById(id).style.display = "block";
+    if (id === "cart") renderCart();
+    if (id === "favorites") renderFavorites();
+  }
+
+  function addToCart(id) {
+    cart.push(id);
+    alert("Produto " + id + " adicionado ao carrinho!");
+  }
+
+  function addToFavorites(id) {
+    favorites.push(id);
+    alert("Produto " + id + " adicionado aos favoritos!");
+  }
+
+  function renderCart() {
+    const list = document.getElementById("cart-list");
+    list.innerHTML = "";
+    cart.forEach(id => {
+      const item = document.createElement("li");
+      item.textContent = "Produto " + id;
+      list.appendChild(item);
+    });
+  }
+
+  function renderFavorites() {
+    const list = document.getElementById("fav-list");
+    list.innerHTML = "";
+    favorites.forEach(id => {
+      const item = document.createElement("li");
+      item.textContent = "Produto " + id;
+      list.appendChild(item);
+    });
+  }
+
+  function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+    if (user === "admin" && pass === "1234") {
+      loggedIn = true;
+      document.getElementById("login-status").textContent = "Login realizado com sucesso!";
+    } else {
+      document.getElementById("login-status").textContent = "Usuário ou senha incorretos.";
+    }
+  }
+
+  showSection('products'); // Inicial
+</script>
+
+</body>
+</html>
