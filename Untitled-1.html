@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo de Clique</title>
+  <style>
+    body { text-align: center; font-family: Arial; }
+    #quadrado {
+      width: 100px; height: 100px;
+      background: red; position: absolute;
+    }
+  </style>
+</head>
+<body>
+  <h1>Clique no Quadrado!</h1>
+  <p>Pontos: <span id="pontos">0</span></p>
+  <div id="quadrado"></div>
+
+  <script>
+    let pontos = 0;
+    const quadrado = document.getElementById("quadrado");
+    const pontosSpan = document.getElementById("pontos");
+
+    function moverQuadrado() {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      quadrado.style.left = x + "px";
+      quadrado.style.top = y + "px";
+    }
+
+    quadrado.addEventListener("click", () => {
+      pontos++;
+      pontosSpan.textContent = pontos;
+      moverQuadrado();
+    });
+
+    moverQuadrado();
+  </script>
+</body>
+</html>
